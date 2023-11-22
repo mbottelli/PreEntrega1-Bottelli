@@ -1,9 +1,9 @@
 import { Badge } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping} from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 
-const CartComponent = () => {
+export const CartComponent = () => {
     return (
         <>
         <FontAwesomeIcon icon={faCartShopping} className='me-2' color="White"/>
@@ -11,5 +11,3 @@ const CartComponent = () => {
         </>
     );
 }
-
-export default CartComponent;
