@@ -1,4 +1,5 @@
 import { Card } from "react-bootstrap";
+import { ItemQuantitySelector } from "../ItemQuantitySelector";
 
 export const ItemSingleComponent = ({products}) => {
     return(
@@ -9,6 +10,7 @@ export const ItemSingleComponent = ({products}) => {
                     <Card.Title>{products.title}</Card.Title>
                     <Card.Text>{products.description}</Card.Text>
                 </Card.Body>
+                <ItemQuantitySelector />
             </Card>
         </div>
     )

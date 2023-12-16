@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProducts, getSingleProduct, getCategoryProduct } from '../service';
-
+import { getDocs, getFirestore, collection, doc, getDoc, query, where } from "firebase/firestore"
 
 export const useProducts = (limit) => {
     const [products, setProducts] = useState([]);
@@ -8,8 +7,16 @@ export const useProducts = (limit) => {
     const [error, setError] = useState(false);
 
     useEffect (() =>{
-        getProducts(limit)
-        .then((res) =>{setProducts(res.data.products);})
+        const db = getFirestore();
+        const collectionRef = collection(db, "products");
+        getDocs(collectionRef)
+            .then((res) => {
+                const data = res.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+                setProducts(data);
+            })
         .catch((err) => setError(true))
         .finally(() => setLoading(false));
     }, [] );
@@ -23,8 +30,16 @@ export const useSingleProduct = (id) => {
     const [error, setError] = useState(false);
 
     useEffect (() =>{
-        getSingleProduct(id)
-        .then((res) =>{setProduct(res.data);})
+        const db = getFirestore();
+        const docRef = doc(db, "products", id);
+        getDoc(docRef)
+            .then((res) => {
+                const data = {
+                    id: res.id,
+                    ...res.data(),
+                };
+                setProduct(data)
+            })
         .catch((err) => setError(true))
         .finally(() => setLoading(false));
     }, [] );
@@ -38,8 +53,17 @@ export const useCategoryProducts = (categoryId) => {
     const [error, setError] = useState(false);
 
     useEffect (() =>{
-        getCategoryProduct(categoryId)
-        .then((res) =>{setProduct(res.data.products);})
+        const db = getFirestore();
+        const collectionRef = collection(db, "products");
+        const categoryQuery = query(collectionRef, where("category", "==", categoryId))
+        getDocs(categoryQuery)
+        .then((res) => {
+            const data = res.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setProduct(data);
+        })
         .catch((err) => setError(true))
         .finally(() => setLoading(false));
     }, [categoryId] );

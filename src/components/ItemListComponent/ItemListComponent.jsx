@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const ItemListComponent = ({products}) => {
+    console.log(products)
     return (
         <div style={{display: "flex", flexWrap: 1, width: "100vw"}}>
         {products.map((product) => {

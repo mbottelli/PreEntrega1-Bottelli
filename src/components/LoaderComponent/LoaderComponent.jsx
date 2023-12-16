@@ -6,11 +6,10 @@ export const LoaderComponent = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        width: "100vw",
-        height: "100vh"
+        height: "90vh"
     }}>
         <l-line-wobble
-        size="150"
+        size="300"
         stroke="5"
         bg-opacity="0.1"
         speed="1.75"
